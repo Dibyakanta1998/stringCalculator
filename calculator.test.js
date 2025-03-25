@@ -19,3 +19,29 @@ test("multiple numbers return their sum", () => {
 test("handles new lines between numbers", () => {
   expect(calculator.add("1\n2,3")).toBe(6);
 });
+
+test("custom delimiter", () => {
+  expect(calculator.add("//;\n1;2;3")).toBe(6);
+});
+
+test("custom delimiter with multiple characters", () => {
+  expect(calculator.add("//***\n1***2***3")).toBe(6);
+});
+
+test("throws exception for negative numbers", () => {
+  expect(() => calculator.add("1,-2,3")).toThrow(
+    "negative numbers not allowed -2"
+  );
+});
+
+test("throws exception for multiple negative numbers", () => {
+  expect(() => calculator.add("1,-2,-3")).toThrow(
+    "negative numbers not allowed -2, -3"
+  );
+});
+
+test("throws exception for negative numbers with custom delimiter", () => {
+  expect(() => calculator.add("//;\n1;-2;3")).toThrow(
+    "negative numbers not allowed -2"
+  );
+});
